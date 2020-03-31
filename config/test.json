@@ -1,0 +1,4 @@
+{
+  "jwtPrivateKey": "1234",
+  "db": "mongodb://localhost/taxiData_test"
+}
