@@ -12,7 +12,9 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.8.10",
+    "neat-csv": "^5.2.0",
     "nodemon": "^2.0.2",
+    "readline-sync": "^1.4.10",
     "swagger-editor": "^3.8.0",
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.3"

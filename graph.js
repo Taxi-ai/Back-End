@@ -1,12 +1,12 @@
 const _Set = require("./_Set");
 const _Graph = require("./_Graph");
-
-// Handling Node Details
+const _Node = require("./_Node");
+const readline = require("readline-sync");
+// Tracing The Shortest Path
 function TracePath(g, startNode, goalNode) {
   let graph = g;
-  let currentNode = graph[goalNode];
+  let currentNode = graph[goalNode.label];
   let path = [];
-
   while (currentNode.parentNode != "") {
     path.push(currentNode.vertex);
     currentNode = graph[currentNode.parentNode];
@@ -14,118 +14,109 @@ function TracePath(g, startNode, goalNode) {
   path.push(startNode);
   while (path.length != 0) {
     let node = path.pop();
-    console.log(`-->(${node}`);
+    console.log(`-->(${node.label}, XCord:${node.x}, YCord:${node.y})`);
   }
 }
 
+// Start Here
 function ShortestPathFinding(graph, startNode, goalNode) {
   let openList = new _Set();
   let closedList = {};
-  let currentNode = graph[startNode];
-
+  let currentNode = graph[startNode.label];
+  //console.log(currentNode);
   openList.insert(currentNode);
   const keys = Object.keys(graph);
   for (let key of keys) {
     closedList[key] = false;
   }
-  //console.log(openList);
-  //console.log(closedList);
+
   console.log("----SHORTEST PATH FINDING----");
-  while (currentNode.vertex != goalNode) {
-    //console.log(currentNode.vertex);
+  while (currentNode.vertex.label != goalNode.label) {
     for (let i = 0; i < currentNode.adjacencyNodes.length; i++) {
-      //console.log(graph[currentNode.adjacencyNodes[i].node].vertex);
-      //console.log(openList.find(graph[currentNode.adjacencyNodes[i].node]));
-      //console.log(!closedList[currentNode.adjacencyNodes[i].node]);
-
-      //console.log(openList.getElements());
-      //console.log(graph[currentNode.adjacencyNodes[i].node].vertex);
-      //console.log(openList.find(graph[currentNode.adjacencyNodes[i].node]));
       if (
-        !closedList[currentNode.adjacencyNodes[i].node] &&
-        !openList.find(graph[currentNode.adjacencyNodes[i].node])
+        !closedList[currentNode.adjacencyNodes[i].node.label] &&
+        !openList.find(graph[currentNode.adjacencyNodes[i].node.label])
       ) {
-        //console.log("here1");
         let fNewValue =
-          currentNode.adjacencyNodes[i].weight +
-          graph[currentNode.adjacencyNodes[i].node].heuristic;
-
+          currentNode.adjacencyNodes[i].distance +
+          graph[currentNode.adjacencyNodes[i].node.label].heuristic;
         if (
-          graph[currentNode.adjacencyNodes[i].node].fValue > fNewValue ||
-          graph[currentNode.adjacencyNodes[i].node].fValue == 100
+          graph[currentNode.adjacencyNodes[i].node.label].fValue > fNewValue ||
+          graph[currentNode.adjacencyNodes[i].node.label].fValue == 1000
         ) {
-          graph[currentNode.adjacencyNodes[i].node].fValue = fNewValue;
-          graph[currentNode.adjacencyNodes[i].node].parentNode =
-            currentNode.vertex;
+          graph[currentNode.adjacencyNodes[i].node.label].fValue = fNewValue;
+          graph[currentNode.adjacencyNodes[i].node.label].parentNode =
+            currentNode.vertex.label;
         }
-        //console.log(openList.getElements());
-        openList.insert(graph[currentNode.adjacencyNodes[i].node]);
-
-        //graph[currentNode.adjacencyNodes[i].node].parentNode =
-        //  currentNode.vertex;
+        openList.insert(graph[currentNode.adjacencyNodes[i].node.label]);
       }
     }
-    //console.log(currentNode.vertex);
-    //console.log(currentNode.vertex);
-    //console.log(closedList[currentNode.vertex]);
-    closedList[currentNode.vertex] = true;
-    //console.log(closedList[currentNode.vertex]);
-    openList.delete(graph[currentNode.vertex]);
+    closedList[currentNode.vertex.label] = true;
+    openList.delete(currentNode);
     currentNode = openList.begin();
   }
-
-  //console.log(graph);
   TracePath(graph, startNode, goalNode);
-  console.log(goalNode);
   console.log("---END----");
-  //TracePath(graph[goalNode]);
 }
 
-//console.log(nodes);
 let g = new _Graph();
-g.AddVertex("A", 19, 1000);
-g.AddVertex("B", 14, 1000);
-g.AddVertex("C", 16, 1000);
-g.AddVertex("D", 11, 1000);
-g.AddVertex("E", 19, 1000);
-g.AddVertex("F", 23, 1000);
-g.AddVertex("G", 20, 1000);
-g.AddVertex("H", 14, 1000);
-g.AddVertex("I", 13, 1000);
-g.AddVertex("J", 11, 1000);
-g.AddVertex("K", 7, 1000);
-g.AddVertex("L", 4, 1000);
-g.AddVertex("M", 5, 1000);
-g.AddVertex("N", 10, 1000);
-g.AddVertex("O", 0, 1000);
-g.AddVertex("P", 5, 1000);
-
-g.AddEdge("A", "B", 5);
-g.AddEdge("A", "C", 5);
-g.AddEdge("B", "C", 4);
-g.AddEdge("B", "D", 3);
-g.AddEdge("C", "D", 7);
-g.AddEdge("C", "E", 7);
-g.AddEdge("C", "H", 8);
-g.AddEdge("D", "H", 11);
-g.AddEdge("D", "K", 16);
-g.AddEdge("D", "L", 13);
-g.AddEdge("D", "M", 14);
-g.AddEdge("E", "H", 5);
-g.AddEdge("E", "F", 4);
-g.AddEdge("F", "G", 9);
-g.AddEdge("G", "N", 12);
-g.AddEdge("H", "I", 3);
-g.AddEdge("I", "J", 4);
-g.AddEdge("J", "N", 3);
-g.AddEdge("J", "P", 8);
-g.AddEdge("K", "P", 4);
-g.AddEdge("K", "N", 7);
-g.AddEdge("K", "L", 5);
-g.AddEdge("L", "O", 4);
-g.AddEdge("L", "M", 9);
-g.AddEdge("M", "O", 5);
-g.AddEdge("N", "P", 7);
-
-//console.log(g.adjacencyList);
-ShortestPathFinding(g.adjacencyList, "A", "O");
+const arr = [];
+const n1 = new _Node("G", 12, 210);
+const n2 = new _Node("n2", 80, 185);
+const n3 = new _Node("n3", 110, 130);
+const n4 = new _Node("n4", 150, 80);
+const n5 = new _Node("n5", 150, 50);
+const n6 = new _Node("n6", 150, 8);
+const n7 = new _Node("n7", 230, 80);
+const n8 = new _Node("S", 275, 245);
+const n9 = new _Node("n9", 230, 210);
+const n10 = new _Node("n10", 200, 185);
+const n11 = new _Node("n11", 200, 130);
+const n12 = new _Node("n12", 150, 130);
+const n13 = new _Node("n13", 200, 50);
+arr.push(n1);
+arr.push(n2);
+arr.push(n3);
+arr.push(n4);
+arr.push(n5);
+arr.push(n6);
+arr.push(n7);
+arr.push(n8);
+arr.push(n9);
+arr.push(n10);
+arr.push(n11);
+arr.push(n12);
+arr.push(n13);
+for (var i = 0; i < 13; i++) g.AddVertex(arr[i]);
+g.CalculateGraphHeuristics(n1);
+//console.log(g.PrintGraph());
+g.AddEdge(n7, n13);
+g.AddEdge(n7, n4);
+g.AddEdge(n5, n4);
+g.AddEdge(n6, n5);
+g.AddEdge(n4, n3);
+g.AddEdge(n3, n2);
+g.AddEdge(n2, n1);
+g.AddEdge(n8, n9);
+g.AddEdge(n9, n10);
+g.AddEdge(n10, n11);
+g.AddEdge(n10, n12);
+g.AddEdge(n11, n3);
+g.AddEdge(n12, n3);
+/*
+console.log(g.PrintGraph());
+console.log(g.PrintGraph());
+*/
+var end = "N";
+while (end != "Y") {
+  var S = new _Node();
+  var G = new _Node();
+  S.label = readline.question("What is Start Node Label?: ");
+  S.x = readline.question("What is xCord: ");
+  S.y = readline.question("What is yCord?: ");
+  G.label = readline.question("What is Goal Node Label?: ");
+  G.x = readline.question("What is xCord: ");
+  G.y = readline.question("What is yCord?: ");
+  ShortestPathFinding(g.adjacencyList, S, G);
+  end = readline.question("PRESS Y FOR END / PRESS N FOR CONTINUE...");
+}

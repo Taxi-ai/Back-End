@@ -2,22 +2,51 @@ module.exports = class _Graph {
   constructor() {
     this.adjacencyList = {};
   }
-  AddVertex(vertex, heuristic, fValue) {
-    if (!this.adjacencyList[vertex])
-      this.adjacencyList[vertex] = {
+  AddVertex(vertex) {
+    if (!this.adjacencyList[vertex.label])
+      this.adjacencyList[vertex.label] = {
         vertex,
-        heuristic,
+        heuristic: 0,
         adjacencyNodes: [],
-        fValue,
+        fValue: 1000,
         parentNode: ""
       };
   }
-  AddEdge(vertex1, vertex2, weight) {
-    this.adjacencyList[vertex1].adjacencyNodes.push({ node: vertex2, weight });
-    this.adjacencyList[vertex2].adjacencyNodes.push({ node: vertex1, weight });
+  EuclideanDistance(startVertex, targetVertex) {
+    var xDifference = Math.abs(
+      Math.floor(targetVertex.x) - Math.floor(startVertex.x)
+    );
+    var yDifference = Math.abs(
+      Math.floor(targetVertex.y) - Math.floor(startVertex.y)
+    );
+    var xDiffSqrt = xDifference * xDifference;
+    var yDiffSqrt = yDifference * yDifference;
+    return Math.floor(Math.sqrt(xDiffSqrt + yDiffSqrt));
+  }
+
+  CalculateGraphHeuristics(targetVertex) {
+    const keys = Object.keys(this.adjacencyList);
+    for (let key of keys) {
+      //console.log(key);
+      this.adjacencyList[key].heuristic = this.EuclideanDistance(
+        this.adjacencyList[key].vertex,
+        targetVertex
+      );
+    }
+  }
+
+  AddEdge(vertex1, vertex2) {
+    this.adjacencyList[vertex1.label].adjacencyNodes.push({
+      node: vertex2,
+      distance: this.EuclideanDistance(vertex1, vertex2)
+    });
   }
   PrintGraph() {
     console.log(this.adjacencyList);
+    const keys = Object.keys(this.adjacencyList);
+    for (let key of keys) {
+      console.log(this.adjacencyList[key].adjacencyNodes);
+    }
   }
 };
 
