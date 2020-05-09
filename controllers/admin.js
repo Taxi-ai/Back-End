@@ -13,7 +13,12 @@ exports.createAdmin = async (req, res, next) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let admin = await Admin.findOne({ email: req.body.email });
+  let admin = await Admin.findOne({ email: req.body.email.toLowerCase() });
+  if (admin) return res.status(400).send("Admin already registered");
+
+  admin = await Admin.findOne({
+    username: req.body.username.toLowerCase(),
+  });
   if (admin) return res.status(400).send("Admin already registered");
 
   admin = new Admin(
@@ -24,9 +29,11 @@ exports.createAdmin = async (req, res, next) => {
       "dateOfBirth",
       "phone",
       "address",
-      "image"
+      "image",
     ])
   );
+  admin.username = admin.username.toLowerCase();
+  admin.email = admin.email.toLowerCase();
   const salt = await bcrypt.genSalt(10);
   admin.password = await bcrypt.hash(admin.password, salt);
 
@@ -50,8 +57,8 @@ exports.updateAdmin = async (req, res, next) => {
         "dateOfBirth",
         "phone",
         "address",
-        "image"
-      ])
+        "image",
+      ]),
     },
     { new: true, useFindAndModify: false }
   );

@@ -1,27 +1,24 @@
 const adminController = require("../controllers/admin");
-const auth = require("../middleware/auth");
+const adminAuth = require("../middleware/adminAuth");
 
 const express = require("express");
 const router = express.Router();
 
 // Getting all admins
 /*.....[Tested Successfully].......*/
-router.get("/", adminController.getAllAdmins);
-
+router.get("/", adminAuth, adminController.getAllAdmins);
 // Creating a new admin
 /*.....[Tested Successfully].......*/
-router.post("/", auth, adminController.createAdmin);
-
+router.post("/", adminAuth, adminController.createAdmin);
 // Updating admin with required ID
 /*.....[Tested Successfully].......*/
-router.put("/:_id", auth, adminController.updateAdmin);
-
+router.put("/:_id", adminAuth, adminController.updateAdmin);
 /*
 // Deleting admin with required ID
 */
-
+router.delete("/:_id", adminAuth, adminController.deleteAdmin);
 // Getting admin with required ID
 /*.....[Tested Successfully].......*/
-router.get("/:_id", auth, adminController.getAdmin);
+router.get("/:_id", adminAuth, adminController.getAdmin);
 
 module.exports = router;
