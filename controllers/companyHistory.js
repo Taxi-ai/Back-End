@@ -6,9 +6,9 @@ exports.getAllCompaniesHistory = async (req, res, next) => {
   CompanyHistory.find()
     .populate({
       path: "companyId",
-      select: "name _id"
+      select: "name _id",
     })
-    .exec(function(err, companyHistory) {
+    .exec(function (err, companyHistory) {
       if (!err) res.send(companyHistory);
     });
 };
@@ -25,7 +25,7 @@ exports.createCompanyHistory = async (req, res, next) => {
       "endingDate",
       "offerId",
       "feedback",
-      "moneyIncome"
+      "moneyIncome",
     ])
   );
   companyHistory = await companyHistory.save();
@@ -47,8 +47,8 @@ exports.updateCompanyHistory = async (req, res, next) => {
         "endingDate",
         "offerId",
         "feedback",
-        "moneyIncome"
-      ])
+        "moneyIncome",
+      ]),
     },
     { new: true, useFindAndModify: false }
   );
