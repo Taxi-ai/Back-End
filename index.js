@@ -3,6 +3,7 @@ const admins = require("./routes/admins");
 const cars = require("./routes/cars");
 const companies = require("./routes/companies");
 const companiesHistory = require("./routes/companiesHistory");
+const packages = require("./routes/packages");
 const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
@@ -31,6 +32,7 @@ app.use("/Taxi-api/cars", cars);
 app.use("/Taxi-api/companies", companies);
 app.use("/Taxi-api/companiesHistory", companiesHistory);
 app.use("/Taxi-api/issues", issues);
+app.use("/Taxi-api/packages", packages);
 app.use("/Taxi-api/adminAuth", adminAuth);
 
 const port = process.env.PORT || 3000;

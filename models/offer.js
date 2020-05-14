@@ -8,27 +8,24 @@ const Offer = mongoose.model(
       type: String,
       minlength: 8,
       maxlength: 10,
-      required: true
+      required: true,
     },
     startingDate: { type: Date, required: true },
     endingDate: { type: Date, required: true },
     limits: { type: Number, required: true },
     numberOfRides: { type: Number, min: 1, required: true },
-    isCountable: { type: Boolean, required: true }
+    isCountable: { type: Boolean, required: true },
   })
 );
 
 function validateOffer(offer) {
   const schema = {
-    code: Joi.String()
-      .min(8)
-      .max(10)
-      .required(),
+    code: Joi.String().min(8).max(10).required(),
     startingDate: Joi.Date().required(),
     endingDate: Joi.Date().required(),
     limits: Joi.Number().required(),
     numberOfRides: Joi.Number().required(),
-    isCountable: Joi.Boolean().required()
+    isCountable: Joi.Boolean().required(),
   };
   return Joi.validate(offer, schema);
 }

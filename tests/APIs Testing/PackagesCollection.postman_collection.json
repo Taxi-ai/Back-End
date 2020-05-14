@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "7afd0fac-a813-452f-a06a-e36d00235e59",
+		"name": "PackagesCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "taxi-api/adminAuth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"mahmoudyoussef0097@gmail.com\",\n\t\"password\":\"Mm@1234567\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/Taxi-api/adminAuth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Taxi-api",
+						"adminAuth"
+					]
+				},
+				"description": "Authenticate the admin before doing anything with packages"
+			},
+			"response": []
+		},
+		{
+			"name": "taxi-api/packages",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2YTY0NjY4ZWZlZTRhMjg5MDNhNTAiLCJ1c2VybmFtZSI6Ik1haG1vdWRZb3Vzc2VmOTciLCJlbWFpbCI6Im1haG1vdWR5b3Vzc2VmMDA5N0BnbWFpbC5jb20iLCJpYXQiOjE1ODk0NjYzMjh9.efXCtA76FHMijoS0QbD-kmzqGpovph9KThoufIFbtak",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/Taxi-api/packages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Taxi-api",
+						"packages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taxi-api/packages/{id}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2YTY0NjY4ZWZlZTRhMjg5MDNhNTAiLCJ1c2VybmFtZSI6Ik1haG1vdWRZb3Vzc2VmOTciLCJlbWFpbCI6Im1haG1vdWR5b3Vzc2VmMDA5N0BnbWFpbC5jb20iLCJpYXQiOjE1ODk0NjYzMjh9.efXCtA76FHMijoS0QbD-kmzqGpovph9KThoufIFbtak",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/Taxi-api/packages/5ebd4b42d0c93a43088c31cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Taxi-api",
+						"packages",
+						"5ebd4b42d0c93a43088c31cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taxi-api/packages/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2YTY0NjY4ZWZlZTRhMjg5MDNhNTAiLCJ1c2VybmFtZSI6Ik1haG1vdWRZb3Vzc2VmOTciLCJlbWFpbCI6Im1haG1vdWR5b3Vzc2VmMDA5N0BnbWFpbC5jb20iLCJpYXQiOjE1ODk0NjYzMjh9.efXCtA76FHMijoS0QbD-kmzqGpovph9KThoufIFbtak",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"category\":\"bronze\",\n\t\"duration\": 1,\n\t\"price\": 100,\n\t\"numberOfRides\": 10,\n\t\"limitedPricePerRide\": 10,\n\t\"numberOfGiftCodes\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/Taxi-api/packages/5ebd4b42d0c93a43088c31cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Taxi-api",
+						"packages",
+						"5ebd4b42d0c93a43088c31cc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "taxi-api/packages/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI2YTY0NjY4ZWZlZTRhMjg5MDNhNTAiLCJ1c2VybmFtZSI6Ik1haG1vdWRZb3Vzc2VmOTciLCJlbWFpbCI6Im1haG1vdWR5b3Vzc2VmMDA5N0BnbWFpbC5jb20iLCJpYXQiOjE1ODk0NjYzMjh9.efXCtA76FHMijoS0QbD-kmzqGpovph9KThoufIFbtak",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/Taxi-api/packages/5ebd4b42d0c93a43088c31cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"Taxi-api",
+						"packages",
+						"5ebd4b42d0c93a43088c31cc"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
