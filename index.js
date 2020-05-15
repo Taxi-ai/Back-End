@@ -1,5 +1,6 @@
 const issues = require("./routes/issues");
 const admins = require("./routes/admins");
+const home = require("./routes/home");
 const cars = require("./routes/cars");
 const companies = require("./routes/companies");
 const companiesHistory = require("./routes/companiesHistory");
@@ -8,6 +9,7 @@ const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
 const dbDriver = require("./databases/dbDriver");
+const path = require("path");
 
 const config = require("config");
 const express = require("express");
@@ -27,13 +29,19 @@ app.use(function (req, res, next) {
   );
   next();
 });
-app.use("/Taxi-api/admins", admins);
-app.use("/Taxi-api/cars", cars);
-app.use("/Taxi-api/companies", companies);
-app.use("/Taxi-api/companiesHistory", companiesHistory);
-app.use("/Taxi-api/issues", issues);
-app.use("/Taxi-api/packages", packages);
-app.use("/Taxi-api/adminAuth", adminAuth);
+app.use(express.static(path.join(__dirname, "")));
+app.engine("html", require("ejs").renderFile);
+app.set("views", "./views");
+app.set("view engine", "ejs");
+
+app.use("/", home);
+app.use("/api/admins", admins);
+app.use("/api/cars", cars);
+app.use("/api/companies", companies);
+app.use("/api/companiesHistory", companiesHistory);
+app.use("/api/issues", issues);
+app.use("/api/packages", packages);
+app.use("/api/adminAuth", adminAuth);
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () =>

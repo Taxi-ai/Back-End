@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "",
-  "db": "mongodb://localhost/taxiData"
+  "db": "mongodb://localhost/barq"
 }
