@@ -1,5 +1,8 @@
 const { Company, validate } = require("../models/company");
+const { CompanyHistory } = require("../models/companyHistory");
+
 const _ = require("lodash");
+const ObjectId = require("mongodb").ObjectID;
 
 // Getting all companies
 exports.getAllCompanies = async (req, res, next) => {
@@ -34,8 +37,8 @@ exports.updateCompany = async (req, res, next) => {
         "numberOfEmployees",
         "email",
         "phone",
-        "address"
-      ])
+        "address",
+      ]),
     },
     { new: true, useFindAndModify: false }
   );
@@ -62,6 +65,12 @@ exports.getCompany = async (req, res, next) => {
 
   if (!company)
     return res.status(404).send("The company with the given ID was not found.");
+
+  let companiesHistory = await CompanyHistory.findOne({
+    companyId: company._id.toString(),
+  });
+
+  company.history = companiesHistory;
 
   res.send(company);
 };
