@@ -1,25 +1,24 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
-const Package = mongoose.model(
-  "Package",
-  new mongoose.Schema({
-    duration: { type: Number, min: 1, max: 12, require: true },
-    category: {
-      type: String,
-      enum: ["gold", "silver", "bronze"],
-      required: true,
-    },
-    price: { type: Number, required: true },
-    numberOfRides: { type: Number, min: 1, required: true },
-    limitedPricePerRide: { type: Number, required: true },
-    numberOfGiftCodes: {
-      type: Number,
-      min: 1,
-      required: true,
-    },
-  })
-);
+const packageSchema = new mongoose.Schema({
+  duration: { type: Number, min: 1, max: 12, require: true },
+  category: {
+    type: String,
+    enum: ["gold", "silver", "bronze"],
+    required: true,
+  },
+  price: { type: Number, required: true },
+  numberOfRides: { type: Number, min: 1, required: true },
+  limitedPricePerRide: { type: Number, required: true },
+  numberOfGiftCodes: {
+    type: Number,
+    min: 1,
+    required: true,
+  },
+});
+
+const Package = mongoose.model("Package", packageSchema);
 
 function validatePackage(package) {
   const schema = {

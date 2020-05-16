@@ -1,10 +1,12 @@
 const issues = require("./routes/issues");
 const admins = require("./routes/admins");
+const users = require("./routes/users");
 const home = require("./routes/home");
 const cars = require("./routes/cars");
 const companies = require("./routes/companies");
 const companiesHistory = require("./routes/companiesHistory");
 const packages = require("./routes/packages");
+const registerPackage = require("./routes/registerPackage");
 const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
@@ -36,11 +38,13 @@ app.set("view engine", "ejs");
 
 app.use("/", home);
 app.use("/api/admins", admins);
+app.use("/api/users", users);
 app.use("/api/cars", cars);
 app.use("/api/companies", companies);
 app.use("/api/companiesHistory", companiesHistory);
 app.use("/api/issues", issues);
 app.use("/api/packages", packages);
+app.use("/api/registerPackage", registerPackage);
 app.use("/api/adminAuth", adminAuth);
 
 const port = process.env.PORT || 3000;
