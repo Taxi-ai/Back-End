@@ -5,8 +5,16 @@ const _ = require("lodash");
 
 // Getting Users Data
 exports.getAllUsers = async (req, res, next) => {
-  const users = await User.find().sort({ username: "asc" });
-  res.send(users);
+  const users = await User.find()
+    .sort({ username: "asc" })
+    .populate({
+      path: "usedPackage.packageId",
+      select:
+        "category duration price numberOfRides limitedPricePerRide numberOfGiftCodes",
+    })
+    .exec(function (err, users) {
+      if (!err) res.send(users);
+    });
 };
 
 exports.createUser = async (req, res, next) => {
