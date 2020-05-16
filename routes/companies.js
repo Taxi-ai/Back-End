@@ -5,14 +5,14 @@ const express = require("express");
 const router = express.Router();
 
 // Removed admin auth temporarily for testing in front end
-router.get("/", adminAuth, companyController.getAllCompanies);
+router.get("/", companyController.getAllCompanies);
 
-router.post("/", adminAuth, companyController.createCompany);
+router.post("/", companyController.createCompany);
 
-router.put("/:_id", adminAuth, companyController.updateCompany);
+router.put("/:_id", companyController.updateCompany);
 
-router.delete("/:_id", adminAuth, companyController.deleteCompany);
+router.delete("/:_id", companyController.deleteCompany);
 
-router.get("/:_id", adminAuth, companyController.getCompany);
+router.get("/:_id", companyController.getCompany);
 
 module.exports = router;
