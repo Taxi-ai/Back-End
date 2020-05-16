@@ -4,28 +4,15 @@ const adminAuth = require("../middleware/adminAuth");
 const express = require("express");
 const router = express.Router();
 
-// Getting all admins
-/*.....[Tested Successfully].......*/
-router.get("/", adminAuth, companyHistoryController.getAllCompaniesHistory);
+// Removed admin auth temporarily for testing in front end
+router.get("/", companyHistoryController.getAllCompaniesHistory);
 
-// Creating new companyHistory
-/*.....[Tested Successfully].......*/
-router.post("/", adminAuth, companyHistoryController.createCompanyHistory);
+router.post("/", companyHistoryController.createCompanyHistory);
 
-// Updating admin with required ID
-/*.....[Tested Successfully].......*/
-router.put("/:_id", adminAuth, companyHistoryController.updateCompanyHistory);
+router.put("/:_id", companyHistoryController.updateCompanyHistory);
 
-// Deleting company with required ID
-/*.....[Tested Successfully].......*/
-router.delete(
-  "/:_id",
-  adminAuth,
-  companyHistoryController.deleteCompanyHistory
-);
+router.delete("/:_id", companyHistoryController.deleteCompanyHistory);
 
-// Getting admin with required ID
-/*.....[Tested Successfully].......*/
-router.get("/:_id", adminAuth, companyHistoryController.getCompanyHistory);
+router.get("/:_id", companyHistoryController.getCompanyHistory);
 
 module.exports = router;
