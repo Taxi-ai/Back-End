@@ -6,6 +6,7 @@ const Notification = mongoose.model(
   new mongoose.Schema({
     title: { type: String, minlength: 15, maxlength: 99, required: true },
     body: { type: String, minlength: 10, maxlength: 1000, required: true },
+    dateOfPublish: { type: Date, required: true },
     image: {
       type: String,
       default: `https://via.placeholder.com/300x250?text=300x250+MPU

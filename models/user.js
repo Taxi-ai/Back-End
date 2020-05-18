@@ -11,6 +11,14 @@ const userSchema = new mongoose.Schema({
     min: 0,
     get: (v) => Math.round(),
   },
+  notifications: [
+    {
+      notificationId: {
+        type: String,
+        ref: "Notification",
+      },
+    },
+  ],
   address: { country: String, city: String, street: String },
   dateOfBirth: { type: Date },
   phone: { type: String, required: true, minlength: 11, maxlength: 15 },

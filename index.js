@@ -12,6 +12,7 @@ const addUserCreditCard = require("./routes/addUserCreditCard");
 const signInUser = require("./routes/signInUser");
 const cancelUserPackage = require("./routes/cancelUserPackage");
 const sendCode = require("./routes/sendCode");
+const notifications = require("./routes/notification");
 const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
@@ -55,6 +56,7 @@ app.use("/api/validateEmail", validateEmail);
 app.use("/api/signInUser", signInUser);
 app.use("/api/cancelUserPackage", cancelUserPackage);
 app.use("/api/sendCode", sendCode);
+app.use("/api/notifications", notifications);
 app.use("/api/adminAuth", adminAuth);
 
 const port = process.env.PORT || 3000;
