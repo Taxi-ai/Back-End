@@ -20,10 +20,10 @@ exports.createNotification = async (req, res, next) => {
   notification = await notification.save();
 
   let users = await User.find();
-  console.log(notification);
-
   users.forEach((element) => {
-    element.notifications.push(notification);
+    element.notifications.push({
+      notificationId: notification._id,
+    });
     element = element.save();
   });
 

@@ -9,14 +9,14 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 20,
     min: 0,
-    get: (v) => Math.round(),
   },
   notifications: [
     {
       notificationId: {
-        type: String,
+        type: mongoose.Types.ObjectId,
         ref: "Notification",
       },
+      read: { type: Boolean, default: false },
     },
   ],
   address: { country: String, city: String, street: String },
@@ -48,6 +48,10 @@ const userSchema = new mongoose.Schema({
     cvv: { type: Number, min: 100, max: 999 },
     creditCardNumber: { type: String, min: 16, max: 16 },
     expirationDate: { type: Date },
+  },
+  appRate: {
+    rate: { type: Number, min: 1, max: 5 },
+    suggestions: { type: String, minlength: 0, maxlength: 255 },
   },
   usedOffer: {
     offerId: { type: mongoose.Types.ObjectId, ref: "Offer" },
