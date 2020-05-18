@@ -2,7 +2,6 @@ const Joi = require("joi");
 
 function validateRegistration(registration) {
   const schema = {
-    packageId: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
   };

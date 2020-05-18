@@ -23,8 +23,8 @@ const adminSchema = new mongoose.Schema({
   image: {
     type: String,
     // Still required to make folder of images in server side ..
-    default:
-      "https://pecb.com/conferences/wp-content/uploads/2017/10/no-profile-picture.jpg",
+    default: `https://via.placeholder.com/150x150?text=125x125+Square+Button
+      C/O https://placeholder.com/banner-ads/`,
   },
 });
 

@@ -7,6 +7,11 @@ const companies = require("./routes/companies");
 const companiesHistory = require("./routes/companiesHistory");
 const packages = require("./routes/packages");
 const registerPackage = require("./routes/registerPackage");
+const validateEmail = require("./routes/validateEmail");
+const addUserCreditCard = require("./routes/addUserCreditCard");
+const signInUser = require("./routes/signInUser");
+const cancelUserPackage = require("./routes/cancelUserPackage");
+const sendCode = require("./routes/sendCode");
 const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
@@ -45,6 +50,11 @@ app.use("/api/companiesHistory", companiesHistory);
 app.use("/api/issues", issues);
 app.use("/api/packages", packages);
 app.use("/api/registerPackage", registerPackage);
+app.use("/api/addUserCreditCard", addUserCreditCard);
+app.use("/api/validateEmail", validateEmail);
+app.use("/api/signInUser", signInUser);
+app.use("/api/cancelUserPackage", cancelUserPackage);
+app.use("/api/sendCode", sendCode);
 app.use("/api/adminAuth", adminAuth);
 
 const port = process.env.PORT || 3000;

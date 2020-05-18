@@ -15,6 +15,7 @@
     "moment": "^2.25.3",
     "mongoose": "^5.8.10",
     "neat-csv": "^5.2.0",
+    "nexmo": "^2.6.0",
     "nodemon": "^2.0.2",
     "readline-sync": "^1.4.10",
     "swagger-editor": "^3.8.0",

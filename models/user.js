@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
       minlength: 10,
       maxlength: 255,
     },
-    cvv: { type: Number, min: 3, max: 3 },
+    cvv: { type: Number, min: 100, max: 999 },
     creditCardNumber: { type: String, min: 16, max: 16 },
     expirationDate: { type: Date },
   },
@@ -53,7 +53,11 @@ const userSchema = new mongoose.Schema({
     startingDate: { type: Date },
     endingDate: { type: Date },
   },
-  image: { type: String },
+  image: {
+    type: String,
+    default: `https://via.placeholder.com/150x150?text=125x125+Square+Button
+  C/O https://placeholder.com/banner-ads/`,
+  },
 });
 
 /*
