@@ -10,8 +10,8 @@ exports.addCreditCard = async (req, res, next) => {
   let user = await User.findById(req.body.userId);
   if (!user) return res.status(400).send("this user doesn't exist");
 
-  let creditCardInfo = _.pick(req.body, ["creditCard"]);
-  user.creditCard = creditCardInfo.creditCard;
+  let creditCardInfo = req.body;
+  user.creditCard = creditCardInfo;
 
   user = await user.save();
 

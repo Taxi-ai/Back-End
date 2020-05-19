@@ -2,7 +2,6 @@ const Joi = require("joi");
 
 function validateRegistration(registration) {
   const schema = {
-    userId: Joi.string().required(),
     creditCard: Joi.object({
       type: Joi.string().valid(["Visa", "Master Card"]).required(),
       cardHolder: Joi.string().min(10).max(255).required(),
@@ -15,4 +14,4 @@ function validateRegistration(registration) {
   return Joi.validate(registration, schema);
 }
 
-exports.validate = validateRegistration;
+exports.validateWallet = validateRegistration;
