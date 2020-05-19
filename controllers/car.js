@@ -3,7 +3,7 @@ const _ = require("lodash");
 
 // Getting all companies
 exports.getAllCars = async (req, res, next) => {
-  const cars = await Car.find().sort("type");
+  const cars = await Car.find().sort("model");
   res.send(cars);
 };
 
@@ -15,11 +15,12 @@ exports.createCar = async (req, res, next) => {
   let car = new Car(
     _.pick(req.body, [
       "model",
-      "type",
+      "description",
       "color",
       "isDisabled",
       "isAccessed",
-      "currentLocation"
+      "currentLocation",
+      "image",
     ])
   );
   car = await car.save();
@@ -37,12 +38,13 @@ exports.updateCar = async (req, res, next) => {
     {
       $set: _.pick(req.body, [
         "model",
-        "type",
+        "description",
         "color",
         "isDisabled",
         "isAccessed",
-        "currentLocation"
-      ])
+        "currentLocation",
+        "image",
+      ]),
     },
     { new: true, useFindAndModify: false }
   );

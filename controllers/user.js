@@ -5,6 +5,7 @@ const { validatePackage } = require("../models/registerPackage");
 const { validateAppRate } = require("../models/appRate");
 const { validateCreditCard } = require("../models/addUserCreditCard");
 const { validateWallet } = require("../models/addMoneyToWallet");
+const { validateNotification } = require("../models/addUserNotification");
 
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
@@ -60,9 +61,39 @@ exports.createUser = async (req, res, next) => {
   res.send(_.pick(user, ["_id", "username", "email"]));
 };
 // Updating Single User via _id
-exports.updateUser = async (req, res, next) => {};
+exports.updateUser = async (req, res, next) => {
+  const { error } = validateCreditCard(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const user = await User.findOneAndUpdate(
+    { _id: req.params._id },
+    {
+      $set: _.pick(req.body, [
+        "username",
+        "email",
+        "password",
+        "dateOfBirth",
+        "phone",
+        "address",
+        "image",
+      ]),
+    },
+    { new: true, useFindAndModify: false }
+  );
+
+  if (!user)
+    return res.status(404).send("The user with the given ID was not found.");
+
+  res.send(user);
+};
 // Deleting Single User via _id
-exports.deleteUser = async (req, res, next) => {};
+exports.deleteUser = async (req, res, next) => {
+  const user = await User.findByIdAndRemove(req.params._id);
+
+  if (!user) res.status(404).send("the user with the given id was not found");
+
+  res.send(user);
+};
 
 exports.deleteUserCreditCard = async (req, res, next) => {
   let user = await User.findById(req.params._id);
@@ -117,6 +148,28 @@ exports.getUserNotifications = async (req, res, next) => {
 
   user = user.save();
   User.findById({ _id: req.params._id })
+    .populate({
+      path: "notifications.notificationId",
+      select: "title body image",
+    })
+    .exec(function (err, user) {
+      if (!err) res.send(user.notifications);
+    });
+};
+
+exports.createUserNotifications = async (req, res, next) => {
+  const { error } = validateNotification(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let user = await User.findById(req.params._id);
+  if (!user)
+    return res.status(404).send("The user with the given ID was not found.");
+
+  user.notifications.push(_.pick(req.body, ["title", "body"]));
+
+  user = await user.save();
+
+  User.findById(req.params._id)
     .populate({
       path: "notifications.notificationId",
       select: "title body image",

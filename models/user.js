@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
   },
   notifications: [
     {
+      body: { type: String },
+      title: { type: String },
       notificationId: {
         type: mongoose.Types.ObjectId,
         ref: "Notification",
@@ -28,7 +30,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ["Gym", "Cafe & Restaurant", "Home", "Work", "Shopping"],
       },
-      icon: { type: String },
+      icon: { type: String, default: `https://via.placeholder.com/30` },
       address: {
         longitude: { type: String },
         latitude: { type: String },
@@ -67,8 +69,7 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: `https://via.placeholder.com/150x150?text=125x125+Square+Button
-  C/O https://placeholder.com/banner-ads/`,
+    default: `https://via.placeholder.com/150`,
   },
 });
 

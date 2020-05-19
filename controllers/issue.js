@@ -1,22 +1,27 @@
 const { Issue, validate } = require("../models/issue");
 
-// Getting all issues
+const _ = require("lodash");
+const moment = require("moment");
+
 exports.getAllIssues = async (req, res, next) => {
-  const issues = await Issue.find().sort({ date: -1 });
+  const issues = await Issue.find().sort({ dateOfPublish: -1 });
   res.send(issues);
 };
 
-/*
-// This function does POST request for creating an issue ...
-*/
+exports.createIssue = async (req, res, next) => {
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-/*
-// This function does PUT request for updating an issue ...
-*/
+  let issue = new Issue(_.pick(req.body, ["userId", "label", "body"]));
+  issue.dateOfPublish = moment();
 
-// Deleting Single issue with required ID
+  issue = await issue.save();
+
+  res.send(issue);
+};
+
 exports.deleteIssue = async (req, res, next) => {
-  const issue = await Issue.findByIdAndRemove(req.params.id);
+  const issue = await Issue.findByIdAndRemove(req.params._id);
 
   if (!issue)
     return res.status(404).send("The Issue with the given ID was not found.");
@@ -24,12 +29,29 @@ exports.deleteIssue = async (req, res, next) => {
   res.send(issue);
 };
 
-// Getting single issue with required ID
 exports.getIssue = async (req, res, next) => {
-  const issue = await Issue.findById(req.params.id);
+  const issue = await Issue.findById(req.params._id);
 
   if (!issue)
     return res.status(404).send("The Issue with the given ID was not found.");
+
+  res.send(issue);
+};
+
+exports.updateIssue = async (req, res, next) => {
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  const issue = await Issue.findOneAndUpdate(
+    { _id: req.params._id },
+    {
+      $set: _.pick(req.body, ["userId", "label", "body"]),
+    },
+    { new: true, useFindAndModify: false }
+  );
+
+  if (!issue)
+    return res.status(404).send("The issue with the given ID was not found.");
 
   res.send(issue);
 };

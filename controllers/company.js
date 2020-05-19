@@ -2,7 +2,6 @@ const { Company, validate } = require("../models/company");
 const { CompanyHistory } = require("../models/companyHistory");
 
 const _ = require("lodash");
-const ObjectId = require("mongodb").ObjectID;
 
 // Getting all companies
 exports.getAllCompanies = async (req, res, next) => {

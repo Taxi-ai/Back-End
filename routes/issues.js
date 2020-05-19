@@ -2,23 +2,14 @@ const issueController = require("../controllers/issue");
 const express = require("express");
 const router = express.Router();
 
-// Getting all issues
 router.get("/", issueController.getAllIssues);
 
-// Creating issue
-/*
-    The functions is here 
-*/
+router.post("/", issueController.createIssue);
 
-// Updating issue with required ID
-/*
-    The functions is here
-*/
+router.delete("/:_id", issueController.deleteIssue);
 
-// Deletes single issue object with required ID
-router.delete("/:id", issueController.deleteIssue);
+router.put("/:_id", issueController.updateIssue);
 
-// Returns single issue object with required ID
-router.get("/:id", issueController.getIssue);
+router.get("/:_id", issueController.getIssue);
 
 module.exports = router;

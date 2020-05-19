@@ -5,32 +5,32 @@ const Car = mongoose.model(
   "Car",
   new mongoose.Schema({
     model: { type: String, minlength: 3, required: true },
-    type: { type: String, minlength: 3, required: true },
+    description: { type: String, minlength: 0 },
     color: { type: String, required: true },
-    isDisabled: { type: Boolean, required: true },
-    isAccessed: { type: Boolean, required: true },
+    isDisabled: { type: Boolean, default: false },
+    isAccessed: { type: Boolean, default: false },
     currentLocation: {
-      longitude: { type: String, required: true },
-      latitude: { type: String, required: true }
-    }
+      xCord: { type: Number, default: null },
+      yCord: { type: Number, default: null },
+    },
+    image: {
+      type: String,
+      default: `https://via.placeholder.com/150`,
+    },
   })
 );
 
 function validateCar(car) {
   const schema = Joi.object({
-    model: Joi.string()
-      .min(3)
-      .required(),
-    type: Joi.string()
-      .min(3)
-      .required(),
+    model: Joi.string().min(3).required(),
+    description: Joi.string().min(0),
     color: Joi.string().required(),
-    isDisabled: Joi.boolean().required(),
-    isAccessed: Joi.boolean().required(),
+    isDisabled: Joi.boolean(),
+    isAccessed: Joi.boolean(),
     currentLocation: Joi.object({
-      longitude: Joi.string().required(),
-      latitude: Joi.string().required()
-    })
+      xCord: Joi.number(),
+      yCord: Joi.number(),
+    }),
   });
 
   return schema.validate(car);

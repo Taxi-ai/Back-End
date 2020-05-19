@@ -21,6 +21,8 @@ router.get("/:_id", userController.getUser);
 
 router.get("/:_id/notifications", userController.getUserNotifications);
 
+router.post("/:_id/notifications", userController.createUserNotifications);
+
 router.get("/:_id/creditCards", userController.getUserCreditCards);
 
 router.get("/:_id/appRate", userController.getUserAppRate);

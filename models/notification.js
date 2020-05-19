@@ -16,13 +16,12 @@ const Notification = mongoose.model(
 );
 
 function validateNotification(notification) {
-  const schema = Joi.object({
+  const schema = {
     title: Joi.string().min(15).max(99).required(),
     body: Joi.string().min(15).max(1000).required(),
     image: Joi.string(),
-  });
-
-  return schema.validate(notification);
+  };
+  return Joi.validate(notification, schema);
 }
 
 exports.Notification = Notification;
