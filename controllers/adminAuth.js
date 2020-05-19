@@ -10,10 +10,12 @@ exports.authAdmin = async (req, res, next) => {
   let admin = await Admin.findOne({ email: req.body.email.toLowerCase() });
   if (!admin) return res.status(400).send("Invalid email or password");
 
-  const validPassword = bcrypt.compare(req.body.password, admin.password);
+  const validPassword = await bcrypt.compare(req.body.password, admin.password);
+  console.log(validPassword);
   if (!validPassword) return res.status(400).send("Invalid email or password");
 
   const token = admin.generateAuthToken();
+
   res.send(token);
 };
 
