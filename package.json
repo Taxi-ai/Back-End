@@ -18,6 +18,7 @@
     "nexmo": "^2.6.0",
     "nodemon": "^2.0.2",
     "readline-sync": "^1.4.10",
+    "socket.io": "^2.3.0",
     "swagger-editor": "^3.8.0",
     "swagger-jsdoc": "^3.5.0",
     "swagger-ui-express": "^4.1.3"

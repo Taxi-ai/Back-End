@@ -2,6 +2,7 @@ const issues = require("./routes/issues");
 const admins = require("./routes/admins");
 const users = require("./routes/users");
 const home = require("./routes/home");
+const help = require("./routes/help");
 const cars = require("./routes/cars");
 const companies = require("./routes/companies");
 const companiesHistory = require("./routes/companiesHistory");
@@ -36,12 +37,15 @@ app.use(function (req, res, next) {
   );
   next();
 });
-app.use(express.static(path.join(__dirname, "")));
+// app.use(express.static(path.join(__dirname, "")));
+app.use(express.static("public"));
 app.engine("html", require("ejs").renderFile);
-app.set("views", "./views");
+app.set("views", "./public");
 app.set("view engine", "ejs");
 
 app.use("/", home);
+app.use("/help", help);
+
 app.use("/api/admins", admins);
 app.use("/api/users", users);
 app.use("/api/cars", cars);
@@ -62,4 +66,12 @@ const server = app.listen(port, () =>
   console.log(`Listening on port ${port}...`)
 );
 
-module.exports = server;
+var io = require("socket.io").listen(server);
+var customerServices = require("./routes/customerService")(io);
+
+app.use("/api/customerServices", customerServices);
+
+// const io = require("./socket").init(server);
+// io.on("connection", (socket) => {
+//   console.log("client connected");
+// });
