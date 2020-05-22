@@ -13,6 +13,7 @@ const sendCode = require("./routes/sendCode");
 const notifications = require("./routes/notification");
 const offers = require("./routes/offers");
 const faqs = require("./routes/faq");
+const points = require("./routes/points");
 const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
@@ -58,6 +59,7 @@ app.use("/api/signInUser", signInUser);
 app.use("/api/sendCode", sendCode);
 app.use("/api/notifications", notifications);
 app.use("/api/offers", offers);
+app.use("/api/points", points);
 app.use("/api/faqs", faqs);
 app.use("/api/adminAuth", adminAuth);
 
@@ -69,9 +71,11 @@ const server = app.listen(port, () =>
 var io = require("socket.io").listen(server);
 var customerServices = require("./routes/customerService")(io);
 var trackCarLocations = require("./routes/trackCarLocation")(io);
+var makeRides = require("./routes/makeRide")(io);
 
 app.use("/api/customerServices", customerServices);
 app.use("/api/trackCarLocations", trackCarLocations);
+app.use("/api/makeRides", makeRides);
 
 // const io = require("./socket").init(server);
 // io.on("connection", (socket) => {
