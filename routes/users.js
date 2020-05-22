@@ -11,7 +11,7 @@ router.post("/", userController.createUser);
 
 router.put("/:_id", userController.updateUser);
 
-router.delete("/:_id", userController.deleteUser);
+router.delete("/:_id", adminAuth, userController.deleteUser);
 
 router.delete("/:_id/creditCards", userController.deleteUserCreditCard);
 
