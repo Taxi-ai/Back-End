@@ -5,16 +5,27 @@ const readline = require("readline-sync");
 // Tracing The Shortest Path
 function TracePath(g, startNode, goalNode) {
   let graph = g;
+  let dir = "";
   let currentNode = graph[goalNode.label];
+
   let path = [];
   while (currentNode.parentNode != "") {
-    path.push(currentNode.vertex);
+    graph[currentNode.parentNode].adjacencyNodes.forEach((element) => {
+      if (element.node.label == currentNode.vertex.label)
+        dir = element.direction;
+    });
+    path.push({ node: currentNode.vertex, direction: dir });
     currentNode = graph[currentNode.parentNode];
   }
-  path.push(startNode);
+  // graph[currentNode.vertex.label].adjacencyNodes.forEach((element) => {
+  //   if (element.node.label == currentNode.vertex.label) dir = element.direction;
+  // });
+  path.push({ node: startNode });
   while (path.length != 0) {
     let node = path.pop();
-    console.log(`-->(${node.label}, XCord:${node.x}, YCord:${node.y})`);
+    console.log(
+      `-->(${node.direction}, XCord:${node.node.x}, YCord:${node.node.y})`
+    );
   }
 }
 
@@ -29,7 +40,6 @@ function ShortestPathFinding(graph, startNode, goalNode) {
   for (let key of keys) {
     closedList[key] = false;
   }
-
   console.log("----SHORTEST PATH FINDING----");
   while (currentNode.vertex.label != goalNode.label) {
     for (let i = 0; i < currentNode.adjacencyNodes.length; i++) {
@@ -90,33 +100,36 @@ arr.push(n13);
 for (var i = 0; i < 13; i++) g.AddVertex(arr[i]);
 g.CalculateGraphHeuristics(n1);
 //console.log(g.PrintGraph());
-g.AddEdge(n7, n13);
-g.AddEdge(n7, n4);
-g.AddEdge(n5, n4);
-g.AddEdge(n6, n5);
-g.AddEdge(n4, n3);
-g.AddEdge(n3, n2);
-g.AddEdge(n2, n1);
-g.AddEdge(n8, n9);
-g.AddEdge(n9, n10);
-g.AddEdge(n10, n11);
-g.AddEdge(n10, n12);
-g.AddEdge(n11, n3);
-g.AddEdge(n12, n3);
+g.AddEdge(n7, n13, "RIGHT");
+g.AddEdge(n7, n4, "LONG");
+g.AddEdge(n5, n4, "LONG");
+g.AddEdge(n6, n5, "LONG");
+g.AddEdge(n4, n3, "RIGHT");
+g.AddEdge(n3, n2, "LONG");
+g.AddEdge(n2, n1, "LONG");
+g.AddEdge(n8, n9, "LONG");
+g.AddEdge(n9, n10, "LONG");
+g.AddEdge(n10, n11, "LONG");
+g.AddEdge(n10, n12, "LEFT");
+g.AddEdge(n11, n3, "LEFT");
+g.AddEdge(n12, n3, "LEFT");
+
+ShortestPathFinding(g.adjacencyList, n8, n1);
 /*
 console.log(g.PrintGraph());
 console.log(g.PrintGraph());
 */
-var end = "N";
-while (end != "Y") {
-  var S = new _Node();
-  var G = new _Node();
-  S.label = readline.question("What is Start Node Label?: ");
-  S.x = readline.question("What is xCord: ");
-  S.y = readline.question("What is yCord?: ");
-  G.label = readline.question("What is Goal Node Label?: ");
-  G.x = readline.question("What is xCord: ");
-  G.y = readline.question("What is yCord?: ");
-  ShortestPathFinding(g.adjacencyList, S, G);
-  end = readline.question("PRESS Y FOR END / PRESS N FOR CONTINUE...");
-}
+
+// var end = "N";
+// while (end != "Y") {
+//   var S = new _Node();
+//   var G = new _Node();
+//   S.label = readline.question("What is Start Node Label?: ");
+//   S.x = readline.question("What is xCord: ");
+//   S.y = readline.question("What is yCord?: ");
+//   G.label = readline.question("What is Goal Node Label?: ");
+//   G.x = readline.question("What is xCord: ");
+//   G.y = readline.question("What is yCord?: ");
+//   ShortestPathFinding(g.adjacencyList, S, G);
+//   end = readline.question("PRESS Y FOR END / PRESS N FOR CONTINUE...");
+// }

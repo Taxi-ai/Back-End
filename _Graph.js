@@ -9,7 +9,7 @@ module.exports = class _Graph {
         heuristic: 0,
         adjacencyNodes: [],
         fValue: 1000,
-        parentNode: ""
+        parentNode: "",
       };
   }
   EuclideanDistance(startVertex, targetVertex) {
@@ -35,10 +35,11 @@ module.exports = class _Graph {
     }
   }
 
-  AddEdge(vertex1, vertex2) {
+  AddEdge(vertex1, vertex2, direction) {
     this.adjacencyList[vertex1.label].adjacencyNodes.push({
       node: vertex2,
-      distance: this.EuclideanDistance(vertex1, vertex2)
+      distance: this.EuclideanDistance(vertex1, vertex2),
+      direction,
     });
   }
   PrintGraph() {
