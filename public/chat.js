@@ -15,7 +15,7 @@ btn.addEventListener("click", function () {
 });
 
 // Listen for events
-socket.on("chat", function (data) {
+socket.on("trackCarLocation", function (data) {
   output.innerHTML +=
-    "<p><strong>" + data.handle + ": </strong>" + data.message + "</p>";
+    "<p><strong>" + data.xCord + ": </strong>" + data.yCord + "</p>";
 });

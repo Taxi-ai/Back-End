@@ -68,8 +68,10 @@ const server = app.listen(port, () =>
 
 var io = require("socket.io").listen(server);
 var customerServices = require("./routes/customerService")(io);
+var trackCarLocations = require("./routes/trackCarLocation")(io);
 
 app.use("/api/customerServices", customerServices);
+app.use("/api/trackCarLocations", trackCarLocations);
 
 // const io = require("./socket").init(server);
 // io.on("connection", (socket) => {
