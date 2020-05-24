@@ -1,4 +1,2 @@
-# Taxi
-
-![logo](taxi-logo.png)
-# Back-End
+# Barq - Back End
+![logo](barq-logo.jpg)
