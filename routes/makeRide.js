@@ -48,13 +48,23 @@ module.exports = function (io) {
     userRide.rideTime = estimatedTimeOfRide;
 
     // get real nodes close to given locations using KdTree
+    let sourceLocation = userRideInformation.userLocation;
+    sourceLocation.xCord = Math.floor((sourceLocation.xCord * 585) / 1359);
+    sourceLocation.yCord = Math.floor((sourceLocation.yCord * 500) / 1155);
+    let destinationLocation = userRideInformation.targetLocation;
+    destinationLocation.xCord = Math.floor(
+      (destinationLocation.xCord * 585) / 1359
+    );
+    destinationLocation.yCord = Math.floor(
+      (destinationLocation.yCord * 500) / 1155
+    );
     let pointsFromDb = await Point.find();
     let closestPointToUserLocation = points.getClosestPoint(
-      userRideInformation.userLocation,
+      sourceLocation,
       pointsFromDb
     );
     let closestPointToTargetLocation = points.getClosestPoint(
-      userRideInformation.targetLocation,
+      destinationLocation,
       pointsFromDb
     );
     res.send({

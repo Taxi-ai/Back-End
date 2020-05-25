@@ -11,6 +11,8 @@ module.exports = {
     const tree = kd.BuildKdTree(points);
     var end = "N";
     //console.log(kd.ClosestPointToRefPoint(tree, pivot));
+    console.log(pivot.xCord);
+    console.log(pivot.yCord);
     let finalPoint = kd.ClosestPointToRefPoint(tree, pivot);
     console.log(finalPoint);
     return finalPoint;
