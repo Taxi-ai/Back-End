@@ -3,6 +3,7 @@ const _Graph = require("./_Graph");
 const _Node = require("./_Node");
 const readline = require("readline-sync");
 // Tracing The Shortest Path
+var tracePath = [];
 function TracePath(g, startNode, goalNode) {
   let graph = g;
   let dir = "";
@@ -26,6 +27,11 @@ function TracePath(g, startNode, goalNode) {
     console.log(
       `-->(${node.direction}, XCord:${node.node.x}, YCord:${node.node.y})`
     );
+    tracePath.push({
+      direction: node.direction,
+      xCord: node.node.x,
+      yCord: node.node.y,
+    });
   }
 }
 
@@ -71,14 +77,14 @@ function ShortestPathFinding(graph, startNode, goalNode) {
 
 let g = new _Graph();
 const arr = [];
-const n1 = new _Node("G", 12, 210);
+const n1 = new _Node("n1", 12, 210);
 const n2 = new _Node("n2", 80, 185);
 const n3 = new _Node("n3", 110, 130);
 const n4 = new _Node("n4", 150, 80);
 const n5 = new _Node("n5", 150, 50);
 const n6 = new _Node("n6", 150, 8);
 const n7 = new _Node("n7", 230, 80);
-const n8 = new _Node("S", 275, 245);
+const n8 = new _Node("n8", 275, 245);
 const n9 = new _Node("n9", 230, 210);
 const n10 = new _Node("n10", 200, 185);
 const n11 = new _Node("n11", 200, 130);
@@ -114,11 +120,12 @@ g.AddEdge(n10, n12, "LEFT");
 g.AddEdge(n11, n3, "LEFT");
 g.AddEdge(n12, n3, "LEFT");
 
-ShortestPathFinding(g.adjacencyList, n8, n1);
-/*
-console.log(g.PrintGraph());
-console.log(g.PrintGraph());
-*/
+module.exports = {
+  getShortestPathBetween: function (start, end) {
+    ShortestPathFinding(g.adjacencyList, start, end);
+    return tracePath;
+  },
+};
 
 // var end = "N";
 // while (end != "Y") {

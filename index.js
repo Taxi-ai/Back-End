@@ -77,6 +77,10 @@ app.use("/api/customerServices", customerServices);
 app.use("/api/trackCarLocations", trackCarLocations);
 app.use("/api/makeRides", makeRides);
 
+// io.on("connection", (socket) => {
+//   console.log("client connected");
+// });
+
 // const io = require("./socket").init(server);
 // io.on("connection", (socket) => {
 //   console.log("client connected");

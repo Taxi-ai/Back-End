@@ -14,7 +14,18 @@ function trackCarLocation() {
   setTimeout(trackCarLocation, 3000);
 }
 
-trackCarLocation();
+socket.on("carLocation", function (data) {
+  console.log(data.message);
+  socket.emit("carCurrentLocation", { xCord: 235, yCord: 225 });
+});
+
+socket.on("goToUserLocation", function (data) {
+  data.forEach((element) => {
+    console.log(element);
+  });
+});
+
+// trackCarLocation();
 
 // // Listen for events
 // socket.on("chat", function (data) {

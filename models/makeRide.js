@@ -4,12 +4,16 @@ function validateRegistration(registration) {
   const schema = {
     userId: Joi.string().required(),
     userLocation: Joi.object({
-      xCord: Joi.number().required(),
-      yCord: Joi.number().required(),
+      place: Joi.string(),
+      street: Joi.string(),
+      xCord: Joi.number(),
+      yCord: Joi.number(),
     }),
     targetLocation: Joi.object({
-      xCord: Joi.number().required(),
-      yCord: Joi.number().required(),
+      place: Joi.string(),
+      street: Joi.string(),
+      xCord: Joi.number(),
+      yCord: Joi.number(),
     }),
   };
   return Joi.validate(registration, schema);
