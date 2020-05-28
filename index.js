@@ -22,6 +22,7 @@ const path = require("path");
 
 const config = require("config");
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 if (!config.get("jwtPrivateKey")) {
@@ -30,14 +31,15 @@ if (!config.get("jwtPrivateKey")) {
 dbDriver.connectDriver(mongodbDriver.connectMongoDB()); // Connecting to mongoDB driver ...
 
 app.use(express.json());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+app.use(cors());
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 // app.use(express.static(path.join(__dirname, "")));
 app.use(express.static("public"));
 app.engine("html", require("ejs").renderFile);
@@ -77,9 +79,10 @@ app.use("/api/customerServices", customerServices);
 app.use("/api/trackCarLocations", trackCarLocations);
 app.use("/api/makeRides", makeRides);
 
-// io.on("connection", (socket) => {
-//   console.log("client connected");
-// });
+io.on("connection", (socket) => {
+  console.log("client connected");
+  socket.emit("carLocation", { message: "Welcome Ya Ibn Samy xD" });
+});
 
 // const io = require("./socket").init(server);
 // io.on("connection", (socket) => {
