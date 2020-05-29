@@ -21,7 +21,25 @@ exports.getAllUsers = async (req, res, next) => {
         "category duration price numberOfRides limitedPricePerRide numberOfGiftCodes",
     })
     .exec(function (err, users) {
-      if (!err) res.send(users);
+      if (!err) {
+        var usersToSend = _.map(users, function (user) {
+          return _.pick(user, [
+            "username",
+            "email",
+            "dateOfBirth",
+            "phone",
+            "address",
+            "image",
+            "wallet",
+            "notifications",
+            "favoriteLocations",
+            "appRate",
+            "usedOffer",
+            "usedPackage",
+          ]);
+        });
+        res.send(usersToSend);
+      }
     });
 };
 
@@ -121,12 +139,27 @@ exports.addUserCreditCard = async (req, res, next) => {
 };
 
 exports.getUser = async (req, res, next) => {
-  const user = User.findById(req.params._id);
+  const user = await User.findById(req.params._id);
 
   if (!user)
     return res.status(404).send("The user with the given ID was not found.");
 
-  res.send(user);
+  res.send(
+    _.pick(user, [
+      "username",
+      "email",
+      "dateOfBirth",
+      "phone",
+      "address",
+      "image",
+      "wallet",
+      "notifications",
+      "favoriteLocations",
+      "appRate",
+      "usedOffer",
+      "usedPackage",
+    ])
+  );
 };
 
 exports.getUserCreditCards = async (req, res, next) => {
