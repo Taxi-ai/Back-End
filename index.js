@@ -14,6 +14,7 @@ const notifications = require("./routes/notification");
 const offers = require("./routes/offers");
 const faqs = require("./routes/faq");
 const points = require("./routes/points");
+const places = require("./routes/places");
 const adminAuth = require("./routes/adminAuth");
 
 const mongodbDriver = require("./databases/mongoDB");
@@ -62,6 +63,7 @@ app.use("/api/sendCode", sendCode);
 app.use("/api/notifications", notifications);
 app.use("/api/offers", offers);
 app.use("/api/points", points);
+app.use("/api/places", places);
 app.use("/api/faqs", faqs);
 app.use("/api/adminAuth", adminAuth);
 
