@@ -3,7 +3,7 @@ const { Package } = require("../models/package");
 const { validate } = require("../models/registerPackage");
 
 const _ = require("lodash");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const moment = require("moment");
 
 // Getting Users Data
@@ -15,7 +15,7 @@ exports.registerUserPackage = async (req, res, next) => {
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Invalid email or password");
 
-  const validPassword = bcrypt.compare(req.body.password, user.password);
+  const validPassword = bcryptjs.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid email or password");
   // Check if it's a valid package
 

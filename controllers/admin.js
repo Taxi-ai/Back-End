@@ -1,6 +1,6 @@
 const { Admin, validate } = require("../models/admin");
 
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const _ = require("lodash");
 
 // Getting all admins
@@ -34,8 +34,8 @@ exports.createAdmin = async (req, res, next) => {
   );
   admin.username = admin.username.toLowerCase();
   admin.email = admin.email.toLowerCase();
-  const salt = await bcrypt.genSalt(10);
-  admin.password = await bcrypt.hash(admin.password, salt);
+  const salt = await bcryptjs.genSalt(10);
+  admin.password = await bcryptjs.hash(admin.password, salt);
 
   admin = await admin.save();
 

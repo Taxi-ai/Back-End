@@ -8,7 +8,7 @@ const { validateWallet } = require("../models/addMoneyToWallet");
 const { validateNotification } = require("../models/addUserNotification");
 
 const _ = require("lodash");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const moment = require("moment");
 
 // Getting Users Data
@@ -68,8 +68,8 @@ exports.createUser = async (req, res, next) => {
   );
   user.username = user.username.toLowerCase();
   user.email = user.email.toLowerCase();
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
+  const salt = await bcryptjs.genSalt(10);
+  user.password = await bcryptjs.hash(user.password, salt);
   const notifications = await Notification.find().sort({ dateOfPublish: -1 });
   notifications.forEach((element) => {
     user.notifications.push({ notificationId: element._id });
@@ -263,7 +263,7 @@ exports.addUserPackage = async (req, res, next) => {
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Invalid email or password");
 
-  const validPassword = bcrypt.compare(req.body.password, user.password);
+  const validPassword = bcryptjs.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid email or password");
   // Check if it's a valid package
 

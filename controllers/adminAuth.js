@@ -1,6 +1,6 @@
 const { Admin } = require("../models/admin");
 
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const Joi = require("joi");
 
 exports.authAdmin = async (req, res, next) => {
@@ -10,7 +10,10 @@ exports.authAdmin = async (req, res, next) => {
   let admin = await Admin.findOne({ email: req.body.email.toLowerCase() });
   if (!admin) return res.status(400).send("Invalid email or password");
 
-  const validPassword = await bcrypt.compare(req.body.password, admin.password);
+  const validPassword = await bcryptjs.compare(
+    req.body.password,
+    admin.password
+  );
   if (!validPassword) return res.status(400).send("Invalid email or password");
 
   const token = admin.generateAuthToken();

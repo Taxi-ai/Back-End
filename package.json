@@ -4,7 +4,7 @@
   "description": "taxi-project",
   "main": "index.js",
   "dependencies": {
-    "bcrypt": "^3.0.8",
+    "bcryptjs": "^2.4.3",
     "config": "^3.2.5",
     "cors": "^2.8.5",
     "ejs": "^3.1.2",
