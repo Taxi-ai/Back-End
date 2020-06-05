@@ -28,7 +28,8 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "jest --watchAll --verbose"
+    "test": "jest --watchAll --verbose",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
