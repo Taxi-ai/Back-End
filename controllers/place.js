@@ -12,6 +12,7 @@ exports.getAllPlaces = async (req, res, next) => {
   if (!placeLocation.xCord && !placeLocation.yCord) places = await Place.find();
   else {
     placeLocation = mapPixelsToCentimeters(placeLocation);
+    console.log(placeLocation);
     places = await Place.find({
       minXRange: { $lte: placeLocation.xCord },
       maxXRange: { $gt: placeLocation.xCord },
