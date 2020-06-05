@@ -2,5 +2,7 @@
     "cSpell.ignoreWords": [
         "diemnsion",
         "k"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/bc96d2e1-860a-468e-9182-7011a1f279c1/resourceGroups/Barq/providers/Microsoft.Web/sites/Barq-api",
+    "appService.deploySubpath": "."
 }
