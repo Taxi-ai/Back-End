@@ -11,6 +11,7 @@ exports.connectMongoDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
+    // Fuck  you
     .then(() => console.log(`Connected to ${CONNECTION_URI}...`))
     .catch((err) => console.error(`Cannot connect to ${db}...`, err));
 };
