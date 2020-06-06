@@ -26,7 +26,9 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-if (!config.get("jwtPrivateKey")) {
+const jwtPrivateKey = process.env.BARQ_JWT;
+
+if (!jwtPrivateKey) {
   console.log("FATAL ERROR: jwtPrivateKey is not defined...");
 }
 dbDriver.connectDriver(mongodbDriver.connectMongoDB()); // Connecting to mongoDB driver ...
@@ -67,7 +69,7 @@ app.use("/api/places", places);
 app.use("/api/faqs", faqs);
 app.use("/api/adminAuth", adminAuth);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () =>
   console.log(`Listening on port ${port}...`)
 );

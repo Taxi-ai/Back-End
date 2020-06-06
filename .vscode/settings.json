@@ -3,10 +3,10 @@
         "diemnsion",
         "k"
     ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/bc96d2e1-860a-468e-9182-7011a1f279c1/resourceGroups/Barq/providers/Microsoft.Web/sites/Barq-api",
     "appService.deploySubpath": ".",
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/bc96d2e1-860a-468e-9182-7011a1f279c1/resourceGroups/BarqAPI/providers/Microsoft.Web/sites/Barq-api"
 }

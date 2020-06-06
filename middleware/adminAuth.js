@@ -7,7 +7,7 @@ async function auth(req, res, next) {
   if (!token) return res.status(401).send("Access Denied. No Token Provided");
 
   try {
-    const decoded = jwt.verify(token, config.get("jwtPrivateKey"));
+    const decoded = jwt.verify(token, process.env.BARQ_JWT);
     req.admin = decoded;
     const admin = await Admin.findById(req.admin._id);
     if (!admin) return res.status(401).send("Not Authorized");
