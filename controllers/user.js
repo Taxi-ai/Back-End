@@ -24,6 +24,7 @@ exports.getAllUsers = async (req, res, next) => {
       if (!err) {
         var usersToSend = _.map(users, function (user) {
           return _.pick(user, [
+            "_id",
             "username",
             "email",
             "dateOfBirth",
